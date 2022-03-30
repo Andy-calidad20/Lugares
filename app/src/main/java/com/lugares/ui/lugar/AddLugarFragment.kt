@@ -17,12 +17,15 @@ import com.google.android.gms.location.LocationServices
 import com.lugares.R
 import com.lugares.databinding.FragmentAddLugarBinding
 import com.lugares.model.Lugar
+import com.lugares.utiles.AudioUtiles
 import com.lugares.viewmodel.LugarViewModel
 
 class AddLugarFragment : Fragment() {
     private lateinit var lugarViewModel: LugarViewModel
     private var _binding: FragmentAddLugarBinding? = null
     private val binding get() = _binding!!
+
+    private lateinit var audioUtiles: AudioUtiles
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -36,6 +39,16 @@ class AddLugarFragment : Fragment() {
         binding.btAddLugar.setOnClickListener {
             agregarLugar()
         }
+
+        audioUtiles = AudioUtiles(
+            requireActivity(),
+            requireContext(),
+            binding.btAccion,
+            binding.btPlay,
+            binding.btDelete,
+            getString(R.string.msg_graba_audio),
+            getString(R.string.msg_detener_audio),
+        )
 
         ubicaGPS()
 
@@ -81,7 +94,7 @@ class AddLugarFragment : Fragment() {
             val longitud = binding.tvLongitud.text.toString().toDouble()
             val altura = binding.tvAltura.text.toString().toDouble()
 
-            val lugar = Lugar(0, nombre, correo, telefono, web,
+            val lugar = Lugar("", nombre, correo, telefono, web,
                 latitud,longitud,altura,
                 "", "")
             lugarViewModel.addLugar(lugar)
