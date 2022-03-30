@@ -33,6 +33,7 @@ class AudioUtiles (
         btDelete.setOnClickListener { borrarNota() }
         btPlay.isEnabled = false
         btDelete.isEnabled = false
+
     }
 
 
